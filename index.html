@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gram2City – Live Local, Anywhere</title>
+
+    <!-- Google Font (optional but nice) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #222;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffffd9;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: #27ae60;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #27ae60;
+        }
+
+        .nav-cta {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #27ae60;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            background: url("https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg") center/cover no-repeat;
+            min-height: 68vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            color: #fff;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.25));
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 100%;
+            padding: 40px 16px 60px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 32px;
+        }
+
+        .hero-text h1 {
+            font-size: 40px;
+            margin: 0 0 10px;
+        }
+
+        .hero-text p {
+            margin: 0 0 18px;
+            font-weight: 300;
+            max-width: 480px;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .hero-badges span {
+            background: #ffffff30;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 999px;
+            background: #27ae60;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+            transition: 0.25s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+        }
+
+        /* HERO SEARCH CARD */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 18px 18px 20px;
+            color: #222;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.25);
+        }
+
+        .hero-card h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .hero-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #555;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .btn-search {
+            width: 100%;
+            padding: 10px;
+            border-radius: 999px;
+            border: none;
+            background: #27ae60;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 60px 16px;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .section-sub {
+            margin: 0 0 24px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* SERVICES GRID */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px 18px 20px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .chip.village { background: #eafaf1; color: #27ae60; }
+        .chip.city    { background: #e9f3ff; color: #2c7be5; }
+        .chip.exp     { background: #fff4e6; color: #f2994a; }
+
+        .card h3 {
+            margin: 4px 0 6px;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .card .price {
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        /* BOOKING SECTION */
+        .booking-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+            gap: 24px;
+        }
+
+        .booking-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px 18px 20px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        .booking-card h3 {
+            margin: 0 0 12px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .booking-grid .field {
+            margin-bottom: 6px;
+        }
+
+        .total-price {
+            margin: 12px 0;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .booking-side {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .booking-side ul {
+            padding-left: 18px;
+        }
+
+        /* CONTACT / FOOTER */
+        .contact-info p {
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #111;
+            color: #eee;
+            padding: 18px 16px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* SIMPLE ANIMATION */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 30px;
+            }
+            .hero-text p {
+                max-width: none;
+            }
+            .booking-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none; /* to keep it simple on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-inner">
+            <div class="logo">Gram2City</div>
+            <div class="nav-links">
+                <a href="#top">Home</a>
+                <a href="#services">Stays</a>
+                <a href="#booking">Booking</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#booking" class="nav-cta">Start Booking</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="top" class="hero">
+        <div class="hero-inner">
+            <div class="hero-text fade-up">
+                <h1>Live like a local in any city or village.</h1>
+                <p>
+                    Discover homestays hosted by real families across Bangladesh –
+                    from calm riverside villages to vibrant city streets.
+                </p>
+                <div class="hero-badges">
+                    <span>Verified hosts</span>
+                    <span>Safe & affordable</span>
+                    <span>Village & city stays</span>
+                </div>
+                <a href="#booking" class="btn-primary">Find your next stay</a>
+            </div>
+
+            <div class="hero-card fade-up">
+                <h3>Search stays</h3>
+                <div class="hero-form">
+                    <div class="field">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="Dhaka, Sylhet, village name..." />
+                    </div>
+                    <div class="field">
+                        <label>Stay Type</label>
+                        <select id="type">
+                            <option value="village">Village Homestay</option>
+                            <option value="city">City Room</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Check-in</label>
+                        <input type="date" id="checkin" />
+                    </div>
+                    <div class="field">
+                        <label>Nights</label>
+                        <input type="number" id="nights" value="1" min="1" />
+                    </div>
+                </div>
+                <button class="btn-search" onclick="scrollToBooking()">Search</button>
+                <p class="hero-note">This is a demo search – real booking will be confirmed by WhatsApp or phone.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+        <div class="section-inner fade-up">
+            <h2 class="section-title">Stay options for every kind of traveler</h2>
+            <p class="section-sub">
+                Whether you want a quiet gram bari or a central city room, Gram2City connects you with trusted hosts.
+            </p>
+
+            <div class="cards">
+                <article class="card">
+                    <span class="chip village">Village</span>
+                    <h3>Village Homestays</h3>
+                    <p>Wake up to birds, green fields and fresh air. Enjoy local food and warm hospitality.</p>
+                    <p class="price">From 700–1200 BDT / night</p>
+                </article>
+
+                <article class="card">
+                    <span class="chip city">City</span>
+                    <h3>City Rooms</h3>
+                    <p>Safe, clean rooms close to transport, food and work – perfect for students and travelers.</p>
+                    <p class="price">From 800–1500 BDT / night</p>
+                </article>
+
+                <article class="card">
+                    <span class="chip exp">Experiences</span>
+                    <h3>Local Experiences</h3>
+                    <p>Boat rides, tea gardens, village walks and cooking nights hosted by locals.</p>
+                    <p class="price">Add-ons from 300 BDT</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section">
+        <div class="section-inner fade-up">
+            <h2 class="section-title">See the vibe</h2>
+            <p class="section-sub">
+                A small glimpse of the kind of places and moments you can experience with Gram2City.
+            </p>
+            <div class="gallery">
+                <img src="https://images.pexels.com/photos/158607/cottages-houses-morning-dawn-158607.jpeg" alt="Village homestay" />
+                <img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg" alt="City apartment" />
+                <img src="https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg" alt="Riverside village" />
+                <img src="https://images.pexels.com/photos/112240/pexels-photo-112240.jpeg" alt="Countryside road" />
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="section" style="background:#f0f5f2;">
+        <div class="section-inner fade-up">
+            <h2 class="section-title">Quick booking request</h2>
+            <p class="section-sub">
+                Send us your basic details – we’ll match you with the best host and confirm everything by WhatsApp or phone.
+            </p>
+
+            <div class="booking-wrapper">
+                <div class="booking-card">
+                    <h3>Booking details</h3>
+                    <form id="bookingForm" oninput="updatePrice()">
+                        <div class="booking-grid">
+                            <div class="field">
+                                <label>Full name</label>
+                                <input type="text" id="name" required placeholder="Your name" />
+                            </div>
+                            <div class="field">
+                                <label>Phone / WhatsApp</label>
+                                <input type="tel" id="phone" required placeholder="+8801XXXXXXXX" />
+                            </div>
+                            <div class="field">
+                                <label>Stay type</label>
+                                <select id="stayType">
+                                    <option value="village">Village Homestay</option>
+                                    <option value="city">City Room</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Nights</label>
+                                <input type="number" id="stayNights" value="1" min="1" />
+                            </div>
+                            <div class="field">
+                                <label>Guests</label>
+                                <input type="number" id="guests" value="1" min="1" />
+                            </div>
+                            <div class="field">
+                                <label>Check-in date</label>
+                                <input type="date" id="stayCheckin" />
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Special requests</label>
+                            <textarea id="message" rows="3" placeholder="Food, activities, timing etc. (optional)"></textarea>
+                        </div>
+
+                        <p id="priceText" class="total-price">Estimated total: 900 BDT</p>
+
+                        <button type="submit" class="btn-primary" style="width:100%; text-align:center; border:none; cursor:pointer;">
+                            Send booking request
+                        </button>
+                    </form>
+                </div>
+
+                <div class="booking-side">
+                    <h3>How booking works</h3>
+                    <ul>
+                        <li>Fill this quick request form.</li>
+                        <li>Our team suggests 1–3 best stays for your dates and budget.</li>
+                        <li>You confirm by WhatsApp or call.</li>
+                        <li>We share host details, location and payment method.</li>
+                    </ul>
+                    <p><strong>No advance needed</strong> for most village stays – you can pay directly to the host on arrival.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="section-inner fade-up contact-info">
+            <h2 class="section-title">Contact & social</h2>
+            <p class="section-sub">Have questions or want to become a host? Reach out any time.</p>
+            <p><strong>Email:</strong> support@gram2city.com</p>
+            <p><strong>Phone / WhatsApp:</strong> +8801XXXXXXXXX</p>
+            <p><strong>Facebook / Instagram:</strong> @gram2city</p>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Gram2City · Live Local, Anywhere · Built with ❤ in Bangladesh
+    </footer>
+
+    <script>
+        // Scroll from hero search button to booking
+        function scrollToBooking() {
+            const el = document.getElementById("booking");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Simple price estimate
+        function updatePrice() {
+            const type = document.getElementById("stayType").value;
+            const nights = parseInt(document.getElementById("stayNights").value || "1", 10);
+
+            let perNight = type === "village" ? 900 : 1300;
+            const total = perNight * (nights > 0 ? nights : 1);
+
+            document.getElementById("priceText").innerText =
+                "Estimated total: " + total + " BDT";
+        }
+        updatePrice();
+
+        // Fake submit
+        document.getElementById("bookingForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Thank you! We will contact you soon to confirm your booking.");
+        });
+
+        // Fade-up on scroll
+        const fadeEls = document.querySelectorAll(".fade-up");
+        function handleScroll() {
+            const trigger = window.innerHeight * 0.85;
+            fadeEls.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < trigger) {
+                    el.classList.add("show");
+                }
+            });
+        }
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("load", handleScroll);
+    </script>
+</body>
+</html>
